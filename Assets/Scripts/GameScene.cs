@@ -91,9 +91,7 @@ public class GameScene : MonoBehaviour {
 	}
 
 	private void calcQuestionDigit2() {
-		int type = 1;//Random.Range (1, 5);
-		Debug.LogFormat("q_type:{0}", type);
-
+		int type = -1;
 		int arg1Digit10 = -1;
 		int arg1Digit1 = -1;
 		int arg2Digit10 = -1;
@@ -102,50 +100,25 @@ public class GameScene : MonoBehaviour {
 		int arg1 = -1;
 		int arg2 = -1;
 
-		switch(type){
-		case 1:		//oo+o
-			switch(difficulty){
-			case 1:
+
+		switch (difficulty) {
+		case 1:
+			type = Random (1, 5);
+			Debug.LogFormat ("calcQuestionDigit2: q_type:{0}", type);
+
+			switch(type){
+			case 1:		//oo+o
 				arg1Digit10 = Random.Range(1, 10);
 				arg1Digit1 = Random.Range(1, 9);
 				arg2Digit10 = 0;
 				arg2Digit1 = Random.Range(1, 10-arg1Digit1);
-
+				
 				arg1 = arg1Digit1 + arg1Digit10;
 				arg2 = arg2Digit10 + arg2Digit1;
 				correctAnswer = arg1 + arg2;
 				questionText.text = arg1.ToString () + " + " + arg2.ToString() + " = ?";
 				break;
-			case 2:	//oo+o
-				arg1Digit10 = Random.Range(1, 10);
-				arg1Digit1 = Random.Range(0, 10);
-				arg2Digit10 = 0;
-				arg2Digit1 = Random.Range(0, 10);
-
-				arg1 = arg1Digit1 + arg1Digit10;
-				arg2 = arg2Digit10 + arg2Digit1;
-				correctAnswer = arg1 + arg2;
-				questionText.text = arg1.ToString () + " + " + arg2.ToString() + " = ?";
-				break;
-			case 3:	//oo+*=oo
-				arg1Digit10 = Random.Range(1, 10);
-				arg1Digit1 = Random.Range(0, 10);
-				arg2Digit10 = 100;
-				arg2Digit1 = 100;
-
-				arg1 = arg1Digit1 + arg1Digit10;
-				arg2 = arg1+Random.Range(1, 10);
-				correctAnswer = arg2 - arg1;
-				questionText.text = arg1.ToString () + " + ? = " + arg2.ToString();
-				break;
-			default:
-				Debug.LogWarning("wrong at switch");
-				break;
-			}
-			break;
-		case 2:		//oo+oo
-			switch(difficulty){
-			case 1:
+			case 2:
 				arg1Digit10 = Random.Range(1, 10);
 				arg1Digit1 = Random.Range(1, 9);
 				arg2Digit10 = Random.Range(1, 10-arg1Digit10);
@@ -156,7 +129,28 @@ public class GameScene : MonoBehaviour {
 				correctAnswer = arg1 + arg2;
 				questionText.text = arg1.ToString () + " + " + arg2.ToString() + " = ?";
 				break;
-			case 2:	//oo+oo
+			default:
+				Debug.LogWarning("wrong at switch");
+				break;
+			}
+			break;
+
+		case 2:
+			type = Random (1, 5);
+			Debug.LogFormat ("calcQuestionDigit2 q_type:{0}", type);
+			switch(type){
+			case 1:
+				arg1Digit10 = Random.Range(1, 10);
+				arg1Digit1 = Random.Range(0, 10);
+				arg2Digit10 = 0;
+				arg2Digit1 = Random.Range(0, 10);
+				
+				arg1 = arg1Digit1 + arg1Digit10;
+				arg2 = arg2Digit10 + arg2Digit1;
+				correctAnswer = arg1 + arg2;
+				questionText.text = arg1.ToString () + " + " + arg2.ToString() + " = ?";
+				break;
+			case 2:				
 				arg1Digit10 = Random.Range(0, 10);
 				arg1Digit1 = Random.Range(0, 10);
 				arg2Digit10 = Random.Range(0, 10);
@@ -167,7 +161,17 @@ public class GameScene : MonoBehaviour {
 				correctAnswer = arg1 + arg2;
 				questionText.text = arg1.ToString () + " + " + arg2.ToString() + " = ?";
 				break;
-			case 3:	//oo+*=oo
+			default:
+				Debug.LogWarning("wrong at switch");
+				break;
+			}
+			break;
+
+		case 3:
+			type = Random (1, 5);
+			Debug.LogFormat ("calcQuestionDigit2 q_type:{0}", type);
+			switch(type){
+			case 1:
 				arg1Digit10 = Random.Range(1, 10);
 				arg1Digit1 = Random.Range(0, 10);
 				arg2Digit10 = 100;
@@ -176,16 +180,12 @@ public class GameScene : MonoBehaviour {
 				arg1 = arg1Digit1 + arg1Digit10;
 				arg2 = arg1+Random.Range(1, 10);
 				correctAnswer = arg2 - arg1;
-				questionText.text = arg1.ToString () + " - ? = " + arg2.ToString();
+				questionText.text = arg1.ToString () + " + ? = " + arg2.ToString();
 				break;
 			default:
 				Debug.LogWarning("wrong at switch");
 				break;
 			}
-			break;
-		case 3:		//oo-o
-			break;
-		case 4:
 			break;
 		default:
 			Debug.LogWarning("wrong at switch");
