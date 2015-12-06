@@ -76,8 +76,6 @@ public class GameScene : MonoBehaviour {
 			calcQuestionDigit2 ();
 			break;
 		case 2:
-			correctAnswer = arg1 - arg2;
-			questionText.text = arg1.ToString () + " - " + arg2 + " = ?";
 			break;
 		case 3:
 			correctAnswer = arg1 * arg2;
@@ -100,37 +98,57 @@ public class GameScene : MonoBehaviour {
 	}
 
 	private void calcQuestionDigit2() {
-		int digit = (int)Mathf.Pow(10, difficulty);
+		int type = Random.Range (1, 5);
 
-		int arg1Digit1 = Random.Range (0, 10);
-		int arg1Digit2 = 0;
-		bool isPlus = (int)Random.Range (0, 2) == 0 ? true : false;
-		if (isPlus) {
-			arg1Digit2 = Random.Range(0, 9);
-		} else {
-			arg1Digit2 = Random.Range(1, 10);
-		}
+		int arg1Digit10 = -1;
+		int arg1Digit1 = -1;
+		int arg2Digit10 = -1;
+		int arg2Digit1 = -1;
 
-		int arg2Digit1 = Random.Range (0, 10);
-		switch (difficulty) {
-		case 1:
-			if (isPlus) {
-				arg2Digit1 = Random.Range (0, 10 - arg1Digit2);
-			} else {
-				arg2Digit1 = Random.Range (0, arg1Digit2 - 1);
+		switch(type){
+		case 1:		//oo+o
+			switch(difficulty){
+			case 1:
+				arg1Digit10 = Random.Range(1, 10);
+				arg1Digit1 = Random.Range(1, 9);
+//				arg2Digit10 = Random.Range(
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			default:
+				Debug.LogWarning("wrong at switch");
+				break;
 			}
 			break;
-		case 2:
-			arg2Digit1 = Random.Range (0, 10);
+		case 2:		//oo+oo
 			break;
-		case 3:
+		case 3:		//oo-o
+			break;
+		case 4:
 			break;
 		default:
+			Debug.LogWarning("wrong at switch");
 			break;
 		}
-		int arg1 = int.Parse(arg1Digit1.ToString() + arg1Digit2.ToString());
-		int arg2 = arg2Digit1;
 
+		if (arg1Digit10 < 0) 	Debug.LogWarningFormat("arg1Digit10:%d"	, arg1Digit10);
+		if (arg1Digit1 < 0) 	Debug.LogWarningFormat("arg1Digit1:%d"	, arg1Digit1);
+		if (arg2Digit10 < 0) 	Debug.LogWarningFormat("arg2Digit10:%d"	, arg2Digit10);
+		if (arg2Digit1 < 0) 	Debug.LogWarningFormat("arg2Digit1:%d"	, arg2Digit1);
+
+		int arg1 = arg1Digit1 + arg1Digit10;
+		int arg2 = arg2Digit10 + arg2Digit1;
+
+		correctAnswer = arg1 + arg2;
+		questionText.text = arg1.ToString () + " + " + arg2.ToString() + " = ?";
+	}
+
+	private void calcQuestionDigit3() {
+		int digit = (int)Mathf.Pow (10, difficulty);
+		int arg1 = 0;
+		int arg2 = 1;
 		correctAnswer = arg1 + arg2;
 		questionText.text = arg1.ToString () + " + " + arg2 + " = ?";
 	}
